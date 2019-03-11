@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastro de usuario</title>
+    <meta name="viewport" content="width=device-width"/>
+    <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"
+          rel="stylesheet"/>
+    <link th:href="@{/webjars/bootstrap/css/bootstrap-theme.min.css}"
+          rel="stylesheet"/>
+
+</head>
+<body>
+<div class="panel panel-default" style="margin: 10px">
+
+    <div class="panel-heading">
+        <form class="form-inline" method="post" th:object="${usuarioTO}" th:action="@{/cadastro}" style="margin: 20px 0">
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="Nome" th:field="*{name}"/>
+                <input type="text" class="form-control" placeholder="Sobrenome" th:field="*{lastName}"/>
+                <input type="text" class="form-control" placeholder="Username" th:field="*{username}"/>
+                <input type="text" class="form-control" placeholder="Password" th:field="*{password}"/>
+                <button type="submit" class="btn btn-primary">Adicionar</button>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>
