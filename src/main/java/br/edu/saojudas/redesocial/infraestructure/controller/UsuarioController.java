@@ -27,11 +27,11 @@ public class UsuarioController {
     return mv;
     }
 
-
     @PostMapping
     public String cadastrarUsuario(UsuarioTO usuarioTO) {
-
+ //       usuarioService.login(usuarioTO.getUsername(),usuarioTO.getPassword());
         boolean result = usuarioService.createUser(usuarioTO);
         return result? "redirect:/home":"redirect:/home";
     }
+
 }

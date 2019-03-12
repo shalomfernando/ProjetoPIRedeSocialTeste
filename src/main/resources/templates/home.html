@@ -17,7 +17,14 @@
                 <input type="text" class="form-control" placeholder="Password" th:field="*{password}"/>
                 <button type="submit" class="btn btn-primary">Adicionar</button>
             </div>
+
+
+
+
+
+
         </form>
+
     </div>
 </div>
 
@@ -33,6 +40,7 @@
             </thead>
             <tbody>
             <tr th:each="users : ${user}">
+                <td th:text="${users.id}"></td>
                 <td th:text="${users.name}"></td>
                 <td th:text="${users.lastName}"></td>
             </tr>
