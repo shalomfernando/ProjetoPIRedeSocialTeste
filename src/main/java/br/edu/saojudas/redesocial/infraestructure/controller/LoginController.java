@@ -14,10 +14,9 @@ import javax.servlet.http.HttpSession;
 @Controller
 public class LoginController {
 
-    public static final String SESSION = "usuario";
-
     @Autowired
     private UsuarioService usuarioService;
+
 
     @GetMapping("/efetuarLogi")
     public ModelAndView login() {
