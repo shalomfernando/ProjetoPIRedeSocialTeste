@@ -15,4 +15,5 @@ public class UploadLogTO {
     private String nome;
     private String caminho;
     private String data;
+    private String tipo;
 }

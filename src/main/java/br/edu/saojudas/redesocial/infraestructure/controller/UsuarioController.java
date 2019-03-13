@@ -19,7 +19,7 @@ public class UsuarioController {
 
     @GetMapping("/home")
     public ModelAndView Home(){
-    ModelAndView mv = new ModelAndView("home");
+    ModelAndView mv = new ModelAndView("2");
     List<UsuarioEntity> user = usuarioService.listUser();
 
     mv.addObject("user",user);
@@ -29,7 +29,6 @@ public class UsuarioController {
 
     @PostMapping
     public String cadastrarUsuario(UsuarioTO usuarioTO) {
- //       usuarioService.login(usuarioTO.getUsername(),usuarioTO.getPassword());
         boolean result = usuarioService.createUser(usuarioTO);
         return result? "redirect:/home":"redirect:/home";
     }

@@ -25,4 +25,6 @@ public class UploadLogEntity {
     private String caminho;
     @Column(name = "DATA_ARQ")
     private String data;
+    @Column(name = "TIPO_ARQ")
+    private String tipo;
 }
