@@ -17,5 +17,4 @@ public class UsuarioTO {
     private String name;
     private String lastName;
 
-
 }

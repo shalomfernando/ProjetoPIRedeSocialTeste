@@ -1,0 +1,53 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<div th:if="${message}">
+    <h2 th:text="${message}"/>
+</div>
+
+<div>
+    <form method="POST" enctype="multipart/form-data" action="/upload">
+        <table>
+            <tr>
+                <td>File to upload:</td>
+                <td>
+                    <input type="file" name="file" accept="image/*, video/*, audio/*" />
+                </td>
+            </tr>
+            <tr>
+                <td></td><td><input type="submit" value="Upload" /></td></tr>
+        </table>
+    </form>
+</div>
+
+<div class="panel panel-default" style="margin: 10px">
+
+    <div class="panel-body">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>id</th>
+                <th>nome</th>
+                <th>caminho</th>
+                <th>data</th>
+                <th>tipo</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="registro : ${registro}">
+                <td th:text="${registro.id}"></td>
+                <td th:text="${registro.nome}"></td>
+                <td th:text="${registro.caminho}"></td>
+                <td th:text="${registro.data}"></td>
+                <td th:text="${registro.tipo}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+
+
+</body>
+</html>
