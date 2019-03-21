@@ -7,22 +7,15 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
 import br.edu.saojudas.redesocial.domain.persistence.UploadLogEntity;
-import br.edu.saojudas.redesocial.domain.web.TipoUpload;
 import br.edu.saojudas.redesocial.infraestructure.repository.UploadRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
-
-import javax.persistence.EntityManager;
-import javax.persistence.ParameterMode;
-import javax.persistence.PersistenceContext;
-import javax.persistence.StoredProcedureQuery;
 
 @Service
 public class UploadService {
@@ -76,7 +69,8 @@ public class UploadService {
                     default:
                         return "O tipo de arquivo escolhido não é aceito.(." + aux[aux.length - 1] + ")";
                 }
-                UploadLogEntity uploadLogEntity = new UploadLogEntity(null,filename,path    ,horaAtual,tipo);
+
+                UploadLogEntity uploadLogEntity = new UploadLogEntity(null,filename,path,horaAtual,tipo);
                 repository.save(uploadLogEntity);
                 return filename + " Salvo com sucesso!";
             }
