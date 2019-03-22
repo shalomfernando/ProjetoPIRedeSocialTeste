@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "usuario")
@@ -18,13 +19,16 @@ public class UsuarioEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "username")
+    @Column(name = "USERNAME")
     private String username;
-    @Column(name = "password")
+    @Column(name = "PASSWORD")
     private String password;
-    @Column(name = "name")
+    @Column(name = "NAME")
     private String name;
-    @Column(name = "last_name")
+    @Column(name = "LAST_NAME")
     private String lastName;
+    @Column(name = "USUARIO_LOG_UPLOAD")
+    @OneToMany
+    private List<UploadLogEntity> logEntities;
 
 }
