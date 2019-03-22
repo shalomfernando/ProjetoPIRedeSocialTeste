@@ -13,6 +13,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "TAG")
+//@Embeddable
 @Entity
 public class TagEntity {
 

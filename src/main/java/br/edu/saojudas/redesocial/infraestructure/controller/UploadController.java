@@ -2,6 +2,7 @@ package br.edu.saojudas.redesocial.infraestructure.controller;
 
 
 import br.edu.saojudas.redesocial.domain.persistence.TagEntity;
+import br.edu.saojudas.redesocial.domain.persistence.UploadLogEntity;
 import br.edu.saojudas.redesocial.domain.web.TagTO;
 import br.edu.saojudas.redesocial.domain.web.UploadLogTO;
 import br.edu.saojudas.redesocial.infraestructure.service.TagService;
@@ -25,23 +26,24 @@ public class UploadController {
     private TagService tagService;
 
     @Autowired
-    public UploadController(UploadService service)
+    public UploadController(UploadService service,TagService tagService)
     {
+        this.tagService = tagService;
         this.uploadService = service;
     }
 
     @GetMapping("/upload")
     public ModelAndView uploadFile() {
         ModelAndView mv = new ModelAndView("uploadForm");
-        List<UploadLogTO> registros = uploadService.listUser();
+        List<UploadLogEntity> registros = uploadService.listUpload();
         mv.addObject("registro",registros);
-        List<TagTO> tags = tagService.listaDeTags();
+        List<TagEntity> tags = tagService.listaDeTags();
         mv.addObject("tags",tags);
         return mv;
     }
 
     @PostMapping("/upload")
-    public String handleFileUpload(@RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes, List<TagEntity> entityList) throws Exception {
+    public String handleFileUpload(@RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes,UploadLogEntity entityList) throws Exception {
 
         String message = uploadService.uploadLog(file,entityList);
         redirectAttributes.addFlashAttribute("message",message + "!");

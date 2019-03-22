@@ -7,39 +7,31 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.text.SimpleDateFormat;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
-import br.edu.saojudas.redesocial.domain.persistence.TagEntity;
 import br.edu.saojudas.redesocial.domain.persistence.UploadLogEntity;
-import br.edu.saojudas.redesocial.domain.web.UploadLogTO;
 import br.edu.saojudas.redesocial.infraestructure.repository.UploadRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+
 @Service
 public class UploadService {
 
-
-//    @PersistenceContext
-//    private EntityManager entityManager;
     private Path rootLocation;
     private String caminho = "upload-redesocial";
-
-
+    private final UploadRepository repository;
 
     @Autowired
-    public UploadService() {
+    public UploadService(UploadRepository repository) {
         rootLocation = Paths.get(caminho);
+        this.repository = repository;
     }
 
-    @Autowired
-    private UploadRepository repository;
-
-    public String uploadLog(MultipartFile file,List<TagEntity> list) throws IOException {
+    public String uploadLog(MultipartFile file,UploadLogEntity logEntity) throws IOException {
         String filename = StringUtils.cleanPath(file.getOriginalFilename());
         String path = "";
         String horaAtual = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
@@ -73,9 +65,11 @@ public class UploadService {
                     default:
                         return "O tipo de arquivo escolhido não é aceito.(." + aux[aux.length - 1] + ")";
                 }
-
-                UploadLogEntity uploadLogEntity = new UploadLogEntity(null, filename, path, horaAtual, tipo,list);
-                repository.save(uploadLogEntity);
+                logEntity.setCaminho(path);
+                logEntity.setData(horaAtual);
+                logEntity.setNome(filename);
+                logEntity.setTipo(tipo);
+                repository.save(logEntity);
                 return filename + " Salvo com sucesso!";
             }
         }
@@ -83,15 +77,6 @@ public class UploadService {
             Files.delete(Paths.get(path));
             return("Falha ao armazenar o arquivo " + filename);
         }
-    }
-
-//    Busca as Imagens ou os videos.(Caminho deles.)
-    public Path loadVideos(String filename) {
-        return (rootLocation = Paths.get(caminho+"/videos")).resolve(filename);
-    }
-
-    public Path loadImagens(String filename) {
-        return (rootLocation = Paths.get(caminho+"/imagens")).resolve(filename);
     }
 
     public void init() throws Exception {
@@ -106,7 +91,7 @@ public class UploadService {
         }
     }
 
-    public List<UploadLogTO> listUser() {
-        return Collections.singletonList((UploadLogTO) repository.findAll());
+    public List<UploadLogEntity> listUpload() {
+        return  repository.findAll();
     }
 }

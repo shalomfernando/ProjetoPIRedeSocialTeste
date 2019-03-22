@@ -1,5 +1,6 @@
 package br.edu.saojudas.redesocial;
 
+import br.edu.saojudas.redesocial.infraestructure.service.TagService;
 import br.edu.saojudas.redesocial.infraestructure.service.UploadService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;

@@ -28,7 +28,8 @@ public class UploadLogEntity {
     private String data;
     @Column(name = "TIPO_ARQ")
     private String tipo;
-    @ManyToMany
+    @ManyToMany(cascade= CascadeType.ALL)
+    @JoinColumn(nullable = false, name="ID_TAG", foreignKey = @ForeignKey(name = "FK_TAG_ON_UPLOAD_LO"))
     private List<TagEntity> tagEntity;
 
 }
