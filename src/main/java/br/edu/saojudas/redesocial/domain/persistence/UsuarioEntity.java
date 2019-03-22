@@ -9,7 +9,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "usuario")
+@Table(name = "USUARIO")
 @Getter
 @Setter
 @AllArgsConstructor
@@ -27,7 +27,6 @@ public class UsuarioEntity {
     private String name;
     @Column(name = "LAST_NAME")
     private String lastName;
-    @Column(name = "USUARIO_LOG_UPLOAD")
     @OneToMany
     private List<UploadLogEntity> logEntities;
 

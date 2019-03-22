@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Getter
@@ -27,5 +28,7 @@ public class UploadLogEntity {
     private String data;
     @Column(name = "TIPO_ARQ")
     private String tipo;
+    @ManyToMany
+    private List<TagEntity> tagEntity;
 
 }

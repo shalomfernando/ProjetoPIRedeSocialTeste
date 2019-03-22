@@ -7,10 +7,13 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.text.SimpleDateFormat;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
+import br.edu.saojudas.redesocial.domain.persistence.TagEntity;
 import br.edu.saojudas.redesocial.domain.persistence.UploadLogEntity;
+import br.edu.saojudas.redesocial.domain.web.UploadLogTO;
 import br.edu.saojudas.redesocial.infraestructure.repository.UploadRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,7 +39,7 @@ public class UploadService {
     @Autowired
     private UploadRepository repository;
 
-    public String uploadLog(MultipartFile file) throws IOException {
+    public String uploadLog(MultipartFile file,List<TagEntity> list) throws IOException {
         String filename = StringUtils.cleanPath(file.getOriginalFilename());
         String path = "";
         String horaAtual = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
@@ -71,7 +74,7 @@ public class UploadService {
                         return "O tipo de arquivo escolhido não é aceito.(." + aux[aux.length - 1] + ")";
                 }
 
-                UploadLogEntity uploadLogEntity = new UploadLogEntity(null,filename,path,horaAtual,tipo);
+                UploadLogEntity uploadLogEntity = new UploadLogEntity(null, filename, path, horaAtual, tipo,list);
                 repository.save(uploadLogEntity);
                 return filename + " Salvo com sucesso!";
             }
@@ -103,7 +106,7 @@ public class UploadService {
         }
     }
 
-    public List<UploadLogEntity> listUser() {
-        return repository.findAll();
+    public List<UploadLogTO> listUser() {
+        return Collections.singletonList((UploadLogTO) repository.findAll());
     }
 }

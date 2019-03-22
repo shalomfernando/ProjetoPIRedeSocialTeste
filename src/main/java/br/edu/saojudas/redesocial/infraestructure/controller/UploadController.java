@@ -1,7 +1,10 @@
 package br.edu.saojudas.redesocial.infraestructure.controller;
 
 
-import br.edu.saojudas.redesocial.domain.persistence.UploadLogEntity;
+import br.edu.saojudas.redesocial.domain.persistence.TagEntity;
+import br.edu.saojudas.redesocial.domain.web.TagTO;
+import br.edu.saojudas.redesocial.domain.web.UploadLogTO;
+import br.edu.saojudas.redesocial.infraestructure.service.TagService;
 import br.edu.saojudas.redesocial.infraestructure.service.UploadService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,26 +21,29 @@ import java.util.List;
 @Controller
 public class UploadController {
 
-    private UploadService service;
+    private UploadService uploadService;
+    private TagService tagService;
 
     @Autowired
     public UploadController(UploadService service)
     {
-        this.service = service;
+        this.uploadService = service;
     }
 
     @GetMapping("/upload")
     public ModelAndView uploadFile() {
         ModelAndView mv = new ModelAndView("uploadForm");
-        List<UploadLogEntity> registros = service.listUser();
+        List<UploadLogTO> registros = uploadService.listUser();
         mv.addObject("registro",registros);
+        List<TagTO> tags = tagService.listaDeTags();
+        mv.addObject("tags",tags);
         return mv;
     }
 
     @PostMapping("/upload")
-    public String handleFileUpload(@RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes) throws Exception {
+    public String handleFileUpload(@RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes, List<TagEntity> entityList) throws Exception {
 
-        String message = service.uploadLog(file);
+        String message = uploadService.uploadLog(file,entityList);
         redirectAttributes.addFlashAttribute("message",message + "!");
 
         return "redirect:/upload";
