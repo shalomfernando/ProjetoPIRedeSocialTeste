@@ -18,18 +18,24 @@ public class UploadLogEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID_ARQ")
+    @Column(name = "ARQ_ID")
     private Long id;
-    @Column(name = "NOME_ARQ")
+    @Column(name = "ARQ_NOME")
     private String nome;
-    @Column(name = "LOCAL_ARQ")
+    @Column(name = "ARQ_DESC")
+    private String descricao;
+    @Column(name = "ARQ_LOCAL")
     private String caminho;
-    @Column(name = "DATA_ARQ")
+    @Column(name = "ARQ_DATA")
     private String data;
-    @Column(name = "TIPO_ARQ")
+    @Column(name = "ARQ_TIPO")
     private String tipo;
+
     @ManyToMany(cascade= CascadeType.ALL)
-    @JoinColumn(nullable = false, name="ID_TAG", foreignKey = @ForeignKey(name = "FK_TAG_ON_UPLOAD_LO"))
+    @JoinColumn(nullable = false, name= "TAG_ID", foreignKey = @ForeignKey(name = "FK_TAG_ON_UPLOAD_LOG"))
     private List<TagEntity> tagEntity;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(nullable = false, name = "CATE_ID", foreignKey = @ForeignKey(name = "FK_CATEGORIA_ON_UPDATE_LOG"))
+    private CategoriaEntity categoriaEntity;
 }

@@ -1,10 +1,10 @@
 package br.edu.saojudas.redesocial.infraestructure.controller;
 
 
+import br.edu.saojudas.redesocial.domain.persistence.CategoriaEntity;
 import br.edu.saojudas.redesocial.domain.persistence.TagEntity;
 import br.edu.saojudas.redesocial.domain.persistence.UploadLogEntity;
-import br.edu.saojudas.redesocial.domain.web.TagTO;
-import br.edu.saojudas.redesocial.domain.web.UploadLogTO;
+import br.edu.saojudas.redesocial.infraestructure.service.CategoriaService;
 import br.edu.saojudas.redesocial.infraestructure.service.TagService;
 import br.edu.saojudas.redesocial.infraestructure.service.UploadService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,21 +24,29 @@ public class UploadController {
 
     private UploadService uploadService;
     private TagService tagService;
+    private CategoriaService categoriaService;
 
     @Autowired
-    public UploadController(UploadService service,TagService tagService)
+    public UploadController(UploadService service, TagService tagService, CategoriaService categoriaService)
     {
         this.tagService = tagService;
         this.uploadService = service;
+        this.categoriaService = categoriaService;
     }
 
     @GetMapping("/upload")
     public ModelAndView uploadFile() {
         ModelAndView mv = new ModelAndView("uploadForm");
+
         List<UploadLogEntity> registros = uploadService.listUpload();
         mv.addObject("registro",registros);
+
         List<TagEntity> tags = tagService.listaDeTags();
         mv.addObject("tags",tags);
+
+        List<CategoriaEntity> categoria = categoriaService.listaDeCategorias();
+        mv.addObject("categoria",categoria);
+
         return mv;
     }
 

@@ -1,6 +1,7 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <title>Upload</title>
 </head>
 <body>
@@ -11,37 +12,48 @@
 
 <div>
     <form method="POST" enctype="multipart/form-data" action="/upload">
+        <div class="container">
+            <div class="row">
 
-                    <div class="input-group mb-3">
-                        <div class="custom-file">
-                            <input type="file" name="file" accept="image/*, video/*, audio/*" />
-                            <input type="file" class="custom-file-input" id="inputGroupFile02">
+                <div class="custom-file col-md-6">
+                    <input type="file" name="file" accept="image/*, video/*, audio/*"/>
+                    <input type="file" class="custom-file-input" id="inputGroupFile02">
+
+                </div>
+                <div class="col-md-6">
+                    <label>
+                        <input type="text" name="descricao" placeholder="Digite aqui" required/>
+                    </label>
+                </div>
+
+                <div class="col-md-6 pull-right">
+
+                    <h1>CATEGORIA</h1>
+                    <label>
+                        <div th:each="cate : ${categoria}">
+                            <h6 th:text="${cate.nomeCate}"></h6>
+                            <input type="radio" name="categoriaEntity" th:value="${cate.id}"/>
                         </div>
-
-
-
-                        <label>
-                                <div th:each="tag : ${tags}">
-                                    <h6 th:text="${tag.nomeTag}"></h6>
-                                    <input type="checkbox" name="tagEntity" th:value="${tag.id}" />
-                                </div>
-                        </label>
-
-
-
-                        <div class="input-group-append">
-                            <input type="submit" value="Upload" class="input-group-text" id="inputGroupFileAddon02"/>
+                    </label>
+                </div>
+                <div class="col-md-6 pull-left">
+                    <h1>TAGS</h1>
+                    <label>
+                        <div th:each="tag : ${tags}">
+                            <h6 th:text="${tag.nomeTag}"></h6>
+                            <input type="checkbox" name="tagEntity" th:value="${tag.id}"/>
                         </div>
+                    </label>
+
+
+                    <div class="input-group-append">
+                        <input type="submit" value="Upload" class="input-group-text" id="inputGroupFileAddon02"/>
                     </div>
-
-
+                </div>
+            </div>
+        </div>
     </form>
 </div>
-
-
-
-
-
 
 
 </body>

@@ -7,19 +7,18 @@ import lombok.Setter;
 
 import javax.persistence.*;
 
-
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "TAG")
+@Table(name = "CATEGORIA")
 @Entity
-public class TagEntity {
+public class CategoriaEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "TAG_ID")
+    @Column(name = "CATE_ID")
     private Long id;
-    @Column(name = "TAG_NOME")
-    private String nomeTag;
+    @Column(name = "CATE_NOME")
+    private String nomeCate;
 }

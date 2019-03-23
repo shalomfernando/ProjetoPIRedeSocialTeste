@@ -18,16 +18,15 @@ public class UsuarioEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "USER_ID")
     private Long id;
-    @Column(name = "USERNAME")
+    @Column(name = "USER_USERNAME")
     private String username;
-    @Column(name = "PASSWORD")
+    @Column(name = "USER_PASSWORD")
     private String password;
-    @Column(name = "NAME")
+    @Column(name = "USER_NAME")
     private String name;
-    @Column(name = "LAST_NAME")
-    private String lastName;
-    @OneToMany
+    @OneToMany(cascade= CascadeType.ALL)
     private List<UploadLogEntity> logEntities;
 
 }
