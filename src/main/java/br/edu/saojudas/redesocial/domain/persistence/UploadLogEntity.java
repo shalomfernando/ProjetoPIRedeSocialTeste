@@ -36,6 +36,6 @@ public class UploadLogEntity {
     private List<TagEntity> tagEntity;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(nullable = false, name = "CATE_ID", foreignKey = @ForeignKey(name = "FK_CATEGORIA_ON_UPDATE_LOG"))
+   // @JoinColumn(nullable = false, name = "CATE_ID", foreignKey = @ForeignKey(name = "FK_CATEGORIA_ON_UPDATE_LOG"))
     private CategoriaEntity categoriaEntity;
 }
